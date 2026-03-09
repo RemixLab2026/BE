@@ -1,6 +1,6 @@
 spring:
   application:
-    name: default-setting # 추후 변경
+    name: remixLab-api
   profiles:
     active: local
     group:
@@ -13,6 +13,6 @@ decorator:
   datasource:
     exclude-beans: dataSource, routingDataSource
 
-Logging:
+logging:
   level:
     org.springframework.core.LocalVariableTableParameterNameDiscoverer: error # 에러 까지만 로깅
