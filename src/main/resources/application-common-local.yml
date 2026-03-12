@@ -33,5 +33,8 @@ springdoc:
   default-consumes-media-type: application/json
   default-produces-media-type: application/json
 
+jwt:
+  secret: ${JWT_SECRET}
+
 google:
   key: ${google_api_key} # Google API 키
