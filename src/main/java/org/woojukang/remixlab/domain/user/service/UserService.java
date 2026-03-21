@@ -18,7 +18,6 @@ public class UserService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     // 유저 생성하기
-    @Transactional
     public UserCreateResponse create(UserCreateRequest request){
 
         User user = User.builder()
