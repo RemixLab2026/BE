@@ -1,5 +1,7 @@
 package org.woojukang.remixlab.global.security.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -15,10 +17,12 @@ import org.woojukang.remixlab.global.security.service.RefreshService;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/user/refresh")
+@Tag(name = "refresh 토큰 관리", description = "유저의 refresh 토큰을 관리하는 도메인")
 public class RefreshController {
 
     private final RefreshService refreshService;
 
+    @Operation(summary = "refresh 토큰 갱신",description = "refresh 토큰을 갱신합니다.")
     @PostMapping("/reissue")
     public ResponseEntity<ApiResult<ReissueResponse>> reissue(HttpServletRequest request,
                                                               HttpServletResponse response){
