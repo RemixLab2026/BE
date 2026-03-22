@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.woojukang.remixlab.domain.creation.entity.Creation;
 import org.woojukang.remixlab.domain.plot.entity.Plot;
+import org.woojukang.remixlab.domain.user.entity.User;
 import org.woojukang.remixlab.query.creation.dto.request.ShowPlotWithDetailRequest;
 import org.woojukang.remixlab.query.creation.dto.response.ShowPlotResponse;
 import org.woojukang.remixlab.query.creation.dto.response.ShowPlotWithDetailResponse;
@@ -41,6 +42,10 @@ public class PlotQueryService {
 
         return plotQueryRepository
                 .findPlotWithScenes(showPlotWithDetailRequest.creationId());
+    }
+
+    public Integer countPlotByUser(User user){
+        return plotQueryRepository.countPlotByUser(user);
     }
 
 

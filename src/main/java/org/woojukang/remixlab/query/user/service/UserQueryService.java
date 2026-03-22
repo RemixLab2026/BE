@@ -34,9 +34,10 @@ public class UserQueryService {
     public UserInfoResponse userInfo
             (String username){
 
-        return new UserInfoResponse(userQueryRepository
-                .findByUsername(username)
-                .getUsername());
+        User user = userQueryRepository.findByUsername(username);
+
+        return new UserInfoResponse(user.getUsername(),
+                user.getExp());
 
     }
 

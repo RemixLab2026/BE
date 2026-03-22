@@ -125,6 +125,7 @@ public class PhotoService {
 
 
 
+    // 선택한 사진 저장하기
     public List<PhotoSelection> saveSelections(User user, Creation creation, SelectPhotosRequest request) {
 
         List<PhotoSelection> newSelections = request.selections().stream()
@@ -139,8 +140,6 @@ public class PhotoService {
 
         return photoSelectionRepository.saveAll(newSelections);
     }
-
-
 
 
 

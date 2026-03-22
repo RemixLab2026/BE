@@ -60,7 +60,7 @@ public class CreationController {
                         .CREATED)
                 .body(ApiResult
                         .success(creationFacade
-                                .makePhotos(initPhotoRequest)));
+                                .makePhotos(initPhotoRequest,userDetails.getUsername())));
 
     }
 
@@ -88,14 +88,16 @@ public class CreationController {
     @Operation(summary = "비디오 생성기",
             description = "사용자가 선택한 사진을 기반으로 비디오를 생성합니다.\n이때 , 생성된 비디오의 url은 생성하지 않으며 비디오 생성을 요청만합니다. ")
     public ResponseEntity<ApiResult<InitVideoResponse>> makeVideo
-    (@RequestBody InitVideoRequest initVideoRequest){
+    (@RequestBody InitVideoRequest initVideoRequest,
+     @AuthenticationPrincipal UserDetails userDetails){
 
         return ResponseEntity
                 .status(HttpStatus
                         .CREATED)
                 .body(ApiResult
                         .success(creationFacade
-                                .makeVideoByPhotos(initVideoRequest)));
+                                .makeVideoByPhotos(initVideoRequest,
+                                        userDetails.getUsername())));
     }
 
     @PostMapping("/text/make/video")

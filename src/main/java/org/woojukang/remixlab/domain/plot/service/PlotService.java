@@ -9,6 +9,7 @@ import org.woojukang.remixlab.domain.plot.entity.MainCharacter;
 import org.woojukang.remixlab.domain.plot.entity.Plot;
 import org.woojukang.remixlab.domain.plot.entity.Scene;
 import org.woojukang.remixlab.domain.plot.repository.PlotRepository;
+import org.woojukang.remixlab.domain.user.entity.User;
 
 import java.util.List;
 
@@ -68,6 +69,7 @@ public class PlotService {
       );
 
   }
+
 
 
 }

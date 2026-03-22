@@ -23,19 +23,17 @@ import org.woojukang.remixlab.domain.photo.entity.Photo;
 import org.woojukang.remixlab.domain.creation.service.CreationService;
 import org.woojukang.remixlab.domain.photo.service.PhotoService;
 import org.woojukang.remixlab.domain.plot.service.PlotService;
+import org.woojukang.remixlab.domain.quest.facade.QuestFacade;
 import org.woojukang.remixlab.domain.user.entity.User;
 import org.woojukang.remixlab.domain.video.entity.Video;
 import org.woojukang.remixlab.domain.video.service.VideoService;
 import org.woojukang.remixlab.global.client.ai.dto.request.AiClientRequest;
 import org.woojukang.remixlab.global.client.ai.dto.request.prompt.template.InitPromptTemplate;
 import org.woojukang.remixlab.global.client.ai.dto.response.video.SoraResponse;
-import org.woojukang.remixlab.query.creation.dto.request.ShowPhotoRequest;
 import org.woojukang.remixlab.query.creation.dto.request.ShowPlotWithDetailRequest;
-import org.woojukang.remixlab.query.creation.dto.response.PhotoResponse;
 import org.woojukang.remixlab.query.creation.dto.response.ShowMyCreationResponse;
 import org.woojukang.remixlab.query.creation.dto.response.ShowPlotWithDetailResponse;
 import org.woojukang.remixlab.query.creation.service.CreationQueryService;
-import org.woojukang.remixlab.query.creation.service.PhotoQueryService;
 import org.woojukang.remixlab.query.creation.service.PlotQueryService;
 import org.woojukang.remixlab.query.user.service.UserQueryService;
 
@@ -54,7 +52,8 @@ public class CreationFacade {
     private final UserQueryService userQueryService;
     private final PlotQueryService plotQueryService;
     private final CreationQueryService creationQueryService;
-    private final PhotoQueryService photoQueryService;
+
+    private final QuestFacade questFacade;
 
 
     /* plot 생성기
@@ -90,6 +89,9 @@ public class CreationFacade {
                 .savePlot(creation,
                         initPlotResponse);
 
+        // 퀘스트 여부 확인하기
+        questFacade.onPlotCreated(username);
+
         // response 응답 생성하기
         return InitPlotResultResponse.from(creation.getId(),initPlotResponse);
     }
@@ -119,17 +121,23 @@ public class CreationFacade {
                 .makeCreationDirect(user,
                         aiClientRequest);
 
-        // photo 객체 저장 후 , response 리턴
-        return photoService
-                .saveDirectPhoto(creation,
-                        directPhotoResponse);
+        // photo 객체 저장 및 response 생성
+        DirectPhotoResultResponse directPhotoResultResponse =
+                photoService
+                        .saveDirectPhoto(creation,
+                                directPhotoResponse);
 
+        // 퀘스트 체크
+        questFacade.onPhotoCreated(username);
+
+        return directPhotoResultResponse;
     }
 
 
     @Transactional
     public InitPhotoResultResponse makePhotos
-    (InitPhotoRequest initPhotoRequest) {
+    (InitPhotoRequest initPhotoRequest,
+     String username) {
 
         // 프롬프트 결합후 , request DTO 생성
         AiClientRequest aiClientRequest =
@@ -162,7 +170,10 @@ public class CreationFacade {
                         initPhotoRequest);
 
         // response 생성하기
-        return photoService.makeResult(photoList);
+        InitPhotoResultResponse initPhotoResultResponse = photoService.makeResult(photoList);
+
+
+        return initPhotoResultResponse;
     }
 
 
@@ -171,7 +182,7 @@ public class CreationFacade {
      */
 
     @Transactional
-    public InitVideoResponse makeVideoByPhotos(InitVideoRequest initVideoRequest){
+    public InitVideoResponse makeVideoByPhotos(InitVideoRequest initVideoRequest,String username){
 
         // Creation 가져오기
         Creation creation = creationQueryService
@@ -191,6 +202,9 @@ public class CreationFacade {
 
         // Video 객체 생성후 저장하기
         Video video = videoService.saveVideo(creation,soraResponse);
+
+        // 퀘스트 체크
+        questFacade.onVideoCreated(username);
 
         return new InitVideoResponse(video.getId(),
                 soraResponse
@@ -215,6 +229,9 @@ public class CreationFacade {
 
         // Video 객체 생성하기
         Video video = videoService.saveVideo(creation,soraResponse);
+
+        // 퀘스트 체크
+        questFacade.onVideoCreated(username);
 
         return new InitVideoResponse(video.getId(),
                 soraResponse

@@ -3,14 +3,12 @@ package org.woojukang.remixlab.domain.video.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.woojukang.remixlab.domain.creation.entity.Creation;
-import org.woojukang.remixlab.domain.video.dto.response.VideoStatusResponse;
 import org.woojukang.remixlab.domain.video.entity.Video;
 import org.woojukang.remixlab.domain.video.entity.VideoStatus;
 import org.woojukang.remixlab.domain.video.repository.VideoRepository;
 import org.woojukang.remixlab.global.client.ai.GptClient;
 import org.woojukang.remixlab.global.client.ai.dto.response.video.SoraResponse;
 import org.woojukang.remixlab.global.infra.GcsStorageUploader;
-import org.woojukang.remixlab.global.utils.ai.AiUtils;
 
 import java.io.ByteArrayInputStream;
 
@@ -24,7 +22,7 @@ public class VideoService {
 
     // Video 객체를 생성한 뒤 , save하는 메소드
     public Video saveVideo(Creation creation,
-                           SoraResponse soraResponse){
+                           SoraResponse soraResponse) {
 
         Video video = Video
                 .builder()
@@ -39,21 +37,22 @@ public class VideoService {
         return video;
     }
 
-    public byte[] getVideoUrl(String videoId){
+    public byte[] getVideoUrl(String videoId) {
 
         return gptClient.getVideo(videoId);
 
     }
 
-    public String uploadVideo(byte[] bytes){
+    public String uploadVideo(byte[] bytes) {
 
         return gcsStorageUploader
                 .videoUpload(new ByteArrayInputStream(bytes));
     }
 
-    public void saveVideo(Video video){
+    public void saveVideo(Video video) {
         videoRepository.save(video);
     }
 
-
 }
+
+

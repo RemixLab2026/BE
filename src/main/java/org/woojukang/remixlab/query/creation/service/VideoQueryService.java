@@ -2,6 +2,7 @@ package org.woojukang.remixlab.query.creation.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.woojukang.remixlab.domain.user.entity.User;
 import org.woojukang.remixlab.domain.video.entity.Video;
 import org.woojukang.remixlab.query.creation.repository.VideoQueryRepository;
 
@@ -20,6 +21,12 @@ public class VideoQueryService {
 
         return videoQueryRepository
                 .findByCreationId(creationId);
+    }
+
+    public Integer countVideoByUser(User user){
+
+        return videoQueryRepository
+                .countVideoByUser(user);
     }
 
 }
