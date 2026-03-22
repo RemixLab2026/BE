@@ -83,5 +83,6 @@ jobs:
               -e GCP_PROJECT_ID=${{ secrets.GCP_PROJECT_ID }} \
               -e JWT_SECRET=${{ secrets.JWT_SECRET }} \
               -e OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }} \
+              ${{ secrets.DOCKERHUB_USERNAME }}/remixlab:latest
             
             docker image prune -f
