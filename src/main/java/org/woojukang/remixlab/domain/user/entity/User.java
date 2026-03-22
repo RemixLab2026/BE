@@ -23,5 +23,11 @@ public class User extends BaseEntity {
 
     private Role role;
 
+    private Integer exp;
+
+    public void addExp(Integer amount){
+        this.exp += amount;
+    }
+
 
 }

@@ -24,6 +24,7 @@ public class UserService {
                 .username(request.username())
                 .password(bCryptPasswordEncoder.encode(request.password()))
                 .role(Role.USER)
+                .exp(0)
                 .build();
 
         userRepository.save(user);
