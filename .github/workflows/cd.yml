@@ -71,6 +71,7 @@ jobs:
             docker rm remixlab || true
 
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/remixlab:latest
+            echo '${{ secrets.GCP_KEY }}' > /home/rkddnwn135/key.json
 
             docker run -d \
               --name remixlab \
@@ -81,8 +82,10 @@ jobs:
               -e MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }} \
               -e GCP_BUCKET=${{ secrets.GCP_BUCKET }} \
               -e GCP_PROJECT_ID=${{ secrets.GCP_PROJECT_ID }} \
+              -e GOOGLE_APPLICATION_CREDENTIALS=/app/key.json \
               -e JWT_SECRET=${{ secrets.JWT_SECRET }} \
               -e OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }} \
+              -v /home/rkddnwn135/key.json:/app/key.json \
               ${{ secrets.DOCKERHUB_USERNAME }}/remixlab:latest
             
             docker image prune -f

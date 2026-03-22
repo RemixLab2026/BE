@@ -2,7 +2,7 @@ spring:
   application:
     name: remixLab-api
   profiles:
-    active: local
+    active: prod
     group:
       test: common-test
       local: common-local
