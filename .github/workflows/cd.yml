@@ -76,6 +76,12 @@ jobs:
               --name remixlab \
               -p 8080:8080 \
               -e SPRING_PROFILES_ACTIVE=prod \
-              ${{ secrets.DOCKERHUB_USERNAME }}/remixlab:latest
-
+              -e MYSQL_URL=${{ secrets.MYSQL_URL }} \
+              -e MYSQL_USERNAME=${{ secrets.MYSQL_USERNAME }} \
+              -e MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }} \
+              -e GCP_BUCKET=${{ secrets.GCP_BUCKET }} \
+              -e GCP_PROJECT_ID=${{ secrets.GCP_PROJECT_ID }} \
+              -e JWT_SECRET=${{ secrets.JWT_SECRET }} \
+              -e OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }} \
+            
             docker image prune -f
