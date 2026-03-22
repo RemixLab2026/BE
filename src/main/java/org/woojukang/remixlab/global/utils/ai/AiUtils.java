@@ -93,7 +93,7 @@ public class AiUtils {
 
                             return new InitPhotoRenderResponse.Images(
                                     String.valueOf(detail.sceneNumber()),
-                                    dalleResponse.data().getFirst().b64_json()
+                                    dalleResponse.data().get(0).b64_json()
                             );
 
                         })).toList();
@@ -119,7 +119,7 @@ public class AiUtils {
         // 한 개만 나오므로 data.get(0) 접근
         String base64Image = dalleResponse
                 .data()
-                .getFirst()
+                .get(0)
                 .b64_json();
 
         return new DirectPhotoResponse(base64Image);
