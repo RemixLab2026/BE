@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.woojukang.remixlab.domain.creation.entity.Creation;
+import org.woojukang.remixlab.domain.user.entity.User;
 import org.woojukang.remixlab.global.utils.creation.CreationUtils;
 import org.woojukang.remixlab.query.creation.dto.response.ShowMyCreationResponse;
 import org.woojukang.remixlab.query.creation.repository.CreationQueryRepository;
@@ -28,6 +29,12 @@ public class CreationQueryService {
         return creationQueryRepository
                 .findCreationEntityById(creationId);
 
+    }
+
+    public Long countCompletedProjects(User user){
+
+        return creationQueryRepository
+                .countCompletedProjects(user);
     }
 
 

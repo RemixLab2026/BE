@@ -7,6 +7,7 @@ import org.woojukang.remixlab.domain.photo.dto.response.SelectPhotosResponse;
 import org.woojukang.remixlab.domain.creation.entity.Creation;
 import org.woojukang.remixlab.domain.photo.service.PhotoService;
 import org.woojukang.remixlab.domain.photo.entity.PhotoSelection;
+import org.woojukang.remixlab.domain.quest.facade.QuestFacade;
 import org.woojukang.remixlab.domain.user.entity.User;
 import org.woojukang.remixlab.query.creation.dto.response.PhotoResponse;
 import org.woojukang.remixlab.query.creation.dto.request.ShowPhotoRequest;
@@ -26,6 +27,7 @@ public class PhotoFacade {
     private final PhotoService photoService;
     private final UserQueryService userQueryService;
     private final CreationQueryService creationQueryService;
+    private final QuestFacade questFacade;
 
 
     // 선택한 사진만 조회하기 기능
@@ -64,6 +66,9 @@ public class PhotoFacade {
                 .map(s -> new SelectPhotosResponse
                         .Selection(s.getSceneNumber()))
                 .toList();
+
+        // 퀘스트 체크
+        questFacade.onPhotoCreated(username);
 
         return new SelectPhotosResponse(creation.getId(),responseSelections);
 

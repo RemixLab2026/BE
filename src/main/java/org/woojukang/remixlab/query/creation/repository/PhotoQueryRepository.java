@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.woojukang.remixlab.domain.photo.entity.Photo;
 import org.woojukang.remixlab.domain.photo.entity.QPhoto;
 import org.woojukang.remixlab.domain.photo.entity.QPhotoSelection;
+import org.woojukang.remixlab.domain.user.entity.User;
 
 
 import java.util.List;
@@ -57,6 +58,17 @@ public class PhotoQueryRepository {
                 )
                 .where(qPhotoSelection.userId.eq(userId))
                 .fetch();
+    }
+
+    public Integer countSelectedPhotosByUser(User user){
+
+        Long count = jpaQueryFactory
+                .select(qPhotoSelection.count())
+                .from(qPhotoSelection)
+                .where(qPhotoSelection.userId.eq(user.getId()))
+                .fetchOne();
+
+        return count != null ? count.intValue() : 0;
     }
 
 }

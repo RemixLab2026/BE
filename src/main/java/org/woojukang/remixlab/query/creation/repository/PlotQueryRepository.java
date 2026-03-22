@@ -5,11 +5,13 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.woojukang.remixlab.domain.creation.entity.Creation;
+import org.woojukang.remixlab.domain.creation.entity.QCreation;
 import org.woojukang.remixlab.domain.plot.entity.Plot;
 
 import org.woojukang.remixlab.domain.plot.entity.QPlot;
 import org.woojukang.remixlab.domain.plot.entity.QScene;
 import org.woojukang.remixlab.domain.plot.entity.Scene;
+import org.woojukang.remixlab.domain.user.entity.User;
 import org.woojukang.remixlab.global.config.exception.BaseExceptionEnum;
 import org.woojukang.remixlab.global.config.exception.domain.BaseException;
 import org.woojukang.remixlab.query.creation.dto.response.ShowPlotResponse;
@@ -25,6 +27,7 @@ public class PlotQueryRepository {
     private final JPAQueryFactory jpaQueryFactory;
     private final QPlot qPlot = QPlot.plot;
     private final QScene qScene = QScene.scene;
+    private final QCreation qCreation = QCreation.creation;
 
     // 디자인 보고 나중에 , 필요한 컬럼만 뺴서 볼 수 있도록
 
@@ -125,6 +128,19 @@ public class PlotQueryRepository {
                 plot.getMainCharacter().getPersonality(),
                 scenes
         );
+    }
+
+    public Integer countPlotByUser(User user){
+
+        Long count =  jpaQueryFactory
+                .select(qPlot.count())
+                .from(qPlot)
+                .join(qPlot.creation, qCreation)
+                .where(qCreation.user.eq(user))
+                .fetchOne();
+
+
+        return count != null ? count.intValue() : 0;
     }
 
 
