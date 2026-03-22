@@ -86,7 +86,7 @@ public class AiUtils {
                             DALLERequest dalleRequest = new DALLERequest(
                                     "gpt-image-1",
                                     detail.prompt(),
-                                    "1024x1792"
+                                    "1024x1024"
                             );
 
                             DALLEResponse dalleResponse = gptClient.makeImage(dalleRequest);
