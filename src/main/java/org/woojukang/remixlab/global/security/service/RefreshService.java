@@ -64,7 +64,7 @@ public class RefreshService {
                     " ]", null, null);
         }
 
-        return new ReissueResponse("Refresh EXISTS", "Refresh EXISTS " +
+        return new ReissueResponse("REFRESH EXISTS", "Refresh EXISTS " +
                 "[ Time : " + LocalDateTime.now() +
                 " ]", resetAccessToken(request), reissueRefresh(request));
         // resetAccessToken : 새로운 access토큰을 생성하는 메소드
