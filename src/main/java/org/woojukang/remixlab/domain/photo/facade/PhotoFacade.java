@@ -32,10 +32,12 @@ public class PhotoFacade {
 
     // 선택한 사진만 조회하기 기능
     public PhotoResponse showPhotoSelected
-    (ShowPhotoSelectedRequest showPhotoSelectedRequest){
+    (ShowPhotoSelectedRequest showPhotoSelectedRequest,String username){
+
+        User user = userQueryService.findByUsername(username);
 
         return photoQueryService
-                .showPhotosOnlSelected(showPhotoSelectedRequest);
+                .showPhotosOnlSelected(showPhotoSelectedRequest,user.getId());
 
     }
 

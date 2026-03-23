@@ -56,7 +56,9 @@ public class PhotoController {
                         .OK)
                 .body(ApiResult
                         .success(photoFacade
-                                .showPhotoSelected(showPhotoSelectedRequest)));
+                                .showPhotoSelected(showPhotoSelectedRequest,
+                                        userDetails
+                                                .getUsername())));
 
     }
 

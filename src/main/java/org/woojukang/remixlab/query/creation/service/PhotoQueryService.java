@@ -40,13 +40,12 @@ public class PhotoQueryService {
 
     // 해당 creation에 대해서 해금된 photo를 가져오는 메소드
     public PhotoResponse showPhotosOnlSelected
-            (ShowPhotoSelectedRequest showPhotoSelectedRequest){
+            (ShowPhotoSelectedRequest showPhotoSelectedRequest,Long userId){
 
         List<Photo> photos = photoQueryRepository
                 .findPhotosSelectedByCreationId(showPhotoSelectedRequest
                                 .creationId(),
-                        showPhotoSelectedRequest
-                                .userId());
+                        userId);
 
         List<PhotoResponse.photoDetails> details = photos
                 .stream()
