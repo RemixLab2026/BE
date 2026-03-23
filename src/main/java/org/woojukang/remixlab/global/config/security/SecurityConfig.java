@@ -106,7 +106,7 @@ public class SecurityConfig {
                     configuration.setAllowCredentials(true); // 인증 정보를 포함한 요청을 허용
                     configuration.setAllowedHeaders(Collections.singletonList("*")); // 클라이언트 요청 시 보낼 수 있는 헤더 지정
                     configuration.setMaxAge(3600L); // 브라우저 preflight 요청캐싱 시간 지정
-                    configuration.setExposedHeaders(List.of("AccessToken"));
+                    configuration.setExposedHeaders(List.of("AccessToken","accesstoken"));
 
                     return configuration;
                 }));
