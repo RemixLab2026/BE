@@ -50,7 +50,7 @@ public class RefreshService {
 
         String refresh = findCookie(request);
         if (refresh == null) {
-            return new ReissueResponse("Refresh NULL", "Refresh NULL " +
+            return new ReissueResponse("REFRESH NULL", "Refresh NULL " +
                     "[ Time : " + LocalDateTime.now() +
                     " ]", null, null);
         }
@@ -59,7 +59,7 @@ public class RefreshService {
             jwtUtil.isExpired(refresh);
 
         } catch (ExpiredJwtException e) {
-            return new ReissueResponse("Refresh EXPIRED", "Refresh EXPIRED " +
+            return new ReissueResponse("REFRESH EXPIRED", "Refresh EXPIRED " +
                     "[ Time : " + LocalDateTime.now() +
                     " ]", null, null);
         }

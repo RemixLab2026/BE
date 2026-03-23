@@ -29,6 +29,8 @@ public class RefreshController {
 
         ReissueResponse reissueResponse = refreshService.refreshCookies(request);
 
+        System.out.println("Refresh status: " + reissueResponse.status());
+
         return switch (reissueResponse.status()) {
             case "REFRESH_EXISTS" -> {
                 response
