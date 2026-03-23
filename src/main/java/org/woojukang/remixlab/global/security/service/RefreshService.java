@@ -50,7 +50,7 @@ public class RefreshService {
 
         String refresh = findCookie(request);
         if (refresh == null) {
-            return new ReissueResponse("REFRESH NULL", "Refresh NULL " +
+            return new ReissueResponse("REFRESH_NULL", "Refresh NULL " +
                     "[ Time : " + LocalDateTime.now() +
                     " ]", null, null);
         }
@@ -59,12 +59,12 @@ public class RefreshService {
             jwtUtil.isExpired(refresh);
 
         } catch (ExpiredJwtException e) {
-            return new ReissueResponse("REFRESH EXPIRED", "Refresh EXPIRED " +
+            return new ReissueResponse("REFRESH_EXPIRED", "Refresh EXPIRED " +
                     "[ Time : " + LocalDateTime.now() +
                     " ]", null, null);
         }
 
-        return new ReissueResponse("REFRESH EXISTS", "Refresh EXISTS " +
+        return new ReissueResponse("REFRESH_EXISTS", "Refresh EXISTS " +
                 "[ Time : " + LocalDateTime.now() +
                 " ]", resetAccessToken(request), reissueRefresh(request));
         // resetAccessToken : 새로운 access토큰을 생성하는 메소드
