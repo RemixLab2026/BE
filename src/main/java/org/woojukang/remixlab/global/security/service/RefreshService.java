@@ -39,6 +39,7 @@ public class RefreshService {
 
     }
 
+    @Transactional
     public ReissueResponse refreshCookies(HttpServletRequest request) {
 
         String refresh = findCookie(request);
@@ -74,7 +75,7 @@ public class RefreshService {
 
     }
 
-    @Transactional
+
     public String reissueRefresh(HttpServletRequest request) {
 
         String refresh = findCookie(request);
@@ -97,7 +98,7 @@ public class RefreshService {
         return cookie;
     }
 
-    @Transactional
+
     // 서버에 refresh 토큰을 저장하는 메소드
     public void addRefresh(String username, String refresh, Long expiredMs) {
 
