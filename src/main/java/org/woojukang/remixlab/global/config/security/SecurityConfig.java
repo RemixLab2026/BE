@@ -23,6 +23,7 @@ import org.woojukang.remixlab.global.security.service.RefreshService;
 import org.woojukang.remixlab.global.security.util.JwtUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Collections;
+import java.util.List;
 
 @EnableWebSecurity
 @Configuration
@@ -96,7 +97,11 @@ public class SecurityConfig {
                 .cors((corsCustomizer)->corsCustomizer.configurationSource(request -> {
                     CorsConfiguration configuration = new CorsConfiguration();
 
-                    configuration.setAllowedOrigins(Collections.singletonList("http://localhost:3000")); // 허용 출처 지정
+                    configuration.setAllowedOrigins(List.of(
+                            "http://localhost:3000",
+                            "http://localhost:5173",
+                            "https://remixlab-frontend.vercel.app"
+                    ));
                     configuration.setAllowedMethods(Collections.singletonList("*")); // HTTP 메소드 지정
                     configuration.setAllowCredentials(true); // 인증 정보를 포함한 요청을 허용
                     configuration.setAllowedHeaders(Collections.singletonList("*")); // 클라이언트 요청 시 보낼 수 있는 헤더 지정
